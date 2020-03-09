@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Painel</title>
+    <link rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+     crossorigin="anonymous">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  </head>
+  <body style="background-image: linear-gradient(to left, #06fba6, #1f9bfb);">
+
+    <nav class="navbar navbar-dark bg-dark">
+      <a href="/" class="navbar-brand">Painel de Controle</a>
+    </nav>
+    <form class="" action="/update" method="post">
+      <div class="form-group">
+        <div class="col-md-7" style="padding-top:1%; min-width: 350px; margin-top:1%; text-align: center; margin-left:1%; float:left; border: solid 1px white; border-radius: 3px;">
+          <h5 style="color: white;">Valores</h5>
+          <div style=" width: 32%; text-align: left; float:left; color:white; margin: 2px; padding:1%;">
+            <label style="" for="">Valor Mínimo</label>
+            <input style="min-width:140px; width: 100%; margin:2px;" id="valor_min" type="text" name="valor_min" value="<%= data[0].valor_min %>" class="form-control" placeholder="Valor Mínimo">
+          </div>
+          <div style=" width: 32%; text-align: left;  float:left; color:white; margin: 2px; padding:1%;">
+            <label style="" for="">Valor Mánimo</label>
+            <input style="min-width:140px; width: 100%; margin:2px;" id="valor_max" type="text" name="valor_max" value="<%= data[0].valor_max %>" class="form-control" placeholder="Valor Máximo">
+          </div>
+            <div style=" width: 32%; text-align: left;  float:left; color:white; margin: 2px; padding:1%;">
+            <label style="" for="">Valor Salto</label>
+            <input style="min-width:140px; width: 100%; margin:2px;" id="salto" type="text" name="valor_salto" value="<%= data[0].valor_salto %>" class="form-control" placeholder="Salto do Valor">
+            </div>
+        </div>
+
+        <div class="col-md-7" style="padding-top:1%; min-width: 350px; text-align:center; margin-top:1%; margin-left:1%; float:left; border: solid 1px white; border-radius: 3px;">
+          <h5 style="color: white;">Prazos</h5>
+          <div style=" width: 32%; text-align: left; float:left; color:white; margin: 2px; padding:1%;">
+            <label style="" for="">Prazo Mínimo</label>
+            <input style="min-width:140px; width: 100%; margin:2px;" id="mes_min" type="text" name="prazo_min" value="<%= data[0].prazo_min %>" class="form-control" placeholder="Prazo Mínimo">
+          </div>
+          <div style=" width: 32%; text-align: left; float:left; color:white; margin: 2px; padding:1%;">
+            <label style="" for="">Prazo Máximo</label>
+            <input style="min-width:140px; width: 100%; margin:2px;" id="mes_max" type="text" name="prazo_max" value="<%= data[0].prazo_max %>" class="form-control" placeholder="Prazo Máximo">
+          </div>
+          <div style=" width: 32%; text-align: left; float:left; color:white; margin: 2px; padding:1%;">
+            <label style="" for="">Salto no Prazo</label>
+            <input style="min-width:140px; width: 100%; margin:2px;" id="mes_salto" type="text" name="prazo_salto" value="<%= data[0].prazo_salto %>" class="form-control" placeholder="Salto do Prazo">
+          </div>
+        </div>
+
+        <div class="col-md-7" style="padding-top:1%; text-align:center; margin-top:1%; margin-left:1%; margin-bottom:1%; float:left; border: solid 1px white; border-radius: 3px;">
+             <h5 style="color: white;">Investimentos</h5>
+            <div class="col-md-12" style="padding-top:1%; text-align:center; margin-top:1%; margin-left:1%; float:left;">
+              <div style="float:left; border:solid 1px white; color:white; text-align:left; width:48%; margin:2px; padding:1%;">
+                <label style="" for="">Nome</label>
+                <input style="width:100%; " type="text" name="investimento1" value="<%= data[0].investimento1 %>" class="form-control" placeholder="Nome">
+                <label style="" for="">Juros</label>
+                <input style="width:100%; " id="juros" type="text" name="juros_invest1" value="<%= data[0].juros_invest1 %>" class="form-control" placeholder="Taxa de Juros">
+              </div>
+
+              <div style="float:left; border:solid 1px white; color:white; text-align:left; width:48%; margin:2px; padding:1%;">
+                <label style="" for="">Nome</label>
+                <input style="width:100%;" type="text" name="investimento2" value="<%= data[0].investimento2 %>" class="form-control" placeholder="Nome">
+                <label style="" for="">Juros</label>
+                <input style="width:100%;" id="juros2"  type="text" name="juros_invest2" value="<%= data[0].juros_invest2 %>" class="form-control" placeholder="Taxa de Juros">
+              </div>
+            </div>
+
+
+            <div class="col-md-12" style="padding-top:1%; text-align:center; margin-top:1%; margin-left:1%; float:left;">
+              <div style="float:left; border:solid 1px white; color:white; text-align:left; width:48%; margin:2px; padding:1%;">
+                <label style="" for="">Nome</label>
+                <input style="width:100%;" type="text" name="investimento3" value="<%= data[0].investimento3 %>" class="form-control" placeholder="Nome">
+                <label style="" for="">Juros</label>
+                <input style="width:100%;" id="juros3"  type="text" name="juros_invest3" value="<%= data[0].juros_invest3 %>" class="form-control" placeholder="Taxa de Juros">
+              </div>
+              <div style="float:left; border:solid 1px white; color:white; text-align:left; width:48%; margin:2px; padding:1%;">
+                <label style="" for="">Nome</label>
+                <input style="width:100%;" type="text" name="investimento_match_money" value="<%= data[0].investimento_match_money %>" class="form-control" placeholder="MatchMoney">
+                <label style="" for="">Juros</label>
+                <input style="width:100%;" id="juros4"  type="text" name="juros_invest_match" value="<%= data[0].juros_invest_match %>" class="form-control" placeholder="Taxa de Juros">
+              </div>
+            </div>
+
+            <div class="col-md-3" style="">
+
+            </div>
+
+        </div>
+
+        <div class="col-md-7" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+          <input type="submit" class="btn btn-success" name="" value="Salvar">
+        </div>
+
+      </div>
+    </form>
+
+    <script type="text/javascript">
+      $("#valor_min").mask("00000");
+      $("#valor_max").mask("00000");
+      $("#salto").mask("00000");
+      $("#mes_min").mask("0000");
+      $("#mes_max").mask("0000");
+      $("#mes_salto").mask("0000");
+      $("#juros").mask("0.000");
+      $("#juros2").mask("0.000");
+      $("#juros3").mask("0.000");
+      $("#juros4").mask("0.000");
+    </script>
+
+  </body>
+
+</html>

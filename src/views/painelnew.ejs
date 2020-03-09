@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Painel</title>
+    <link rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+     crossorigin="anonymous">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  </head>
+  <body style="background-color: white;">
+
+    <nav class="navbar navbar-dark bg-dark">
+      <a href="/" class="navbar-brand">Painel de Controle</a>
+    </nav>
+    <form class="" action="" method="post">
+      <div class="form-group">
+        <div class="col-md-5" style="padding-top:1%; overflow: scroll; min-width: 350px; margin-top:1%; text-align: center; margin-left:1%; float:left; border: solid 1px darkgrey; border-radius: 3px;">
+          <h5 style="color: grey;">Valores</h5>
+          <button type="button" class="btn btn-warning" data-toggle="tooltip" style="color:white; border-radius:30px;" data-placement="right"
+          title="Temos um total de 8 valores que podem ser modificados à livre escolha, os valores aparecerão na régua de valores da calculadora na ordem de ids apresentadas na tabela, caso não vá utilizar algum valor, defina o mesmo como 0 ou deixe com o valor atual!">
+            Info
+          </button>
+          <div style=" width: 100%; text-align: left; float:left; color:white; margin: 2px; padding:1%;">
+            <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <td style="text-align:center;">Valor</td>
+                      <td style="text-align:center;">Ações</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (data) { %>
+                      <% for(var i = 0; i < data.valores.length; i++) { %>
+                        <tr>
+                          <td style="text-align:center;"><%= data.valores[i].valor%></td>
+                          <td style="text-align:center;">
+                            <a style="width:50%;" href="/editValores/<%= data.valores[i].idvalores %>" class="btn btn-info">Edit</a>
+                          <!--  <a href="/deleteValores/<%= data.valores[i].idvalores %>" class="btn btn-danger">Delete</a> -->
+                          </td>
+                        </tr>
+                      <% } %>
+                    <% } %>
+                  </tbody>
+
+             </table>
+          </div>
+
+        </div>
+
+
+        <div class="col-md-6" style="padding-top:1%; text-align:center; overflow: scroll; margin-top:1%; margin-left:1%; margin-bottom:1%; float:left; border: solid 1px darkgrey; max-height: 690px; border-radius: 3px;">
+             <h5 style="color: grey;">Match Money</h5>
+             <button type="button" class="btn btn-warning" data-toggle="tooltip" style="color:white; border-radius:30px;" data-placement="right"
+             title="Para cada valor apresentado na régua podemos definir um valor diferente para o juros do MatchMoney caso o juros não sofra alteração basta cadastrar o mesmo anterior para os outros valores!">
+               Info
+             </button>
+              <button type="button" class="btn btn-success" data-toggle="tooltip" style="color:white; border-radius:30px;" onclick="location. href='/inserirmatch'" data-placement="right">+</button>
+            <div class="col-md-12" style="padding-top:1%; text-align:center; margin-top:1%; margin-left:1%; float:left;">
+
+                <table class="table table-bordered table-hover" style="overflow: scroll;">
+                      <thead>
+                        <tr>
+                          <td style="text-align:center;">Valor</td>
+                          <td style="text-align:center;">Prazo</td>
+                          <td style="text-align:center;">Juros</td>
+                          <td style="text-align:center;">Ações</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if (data) { %>
+                          <% for(var i = 0; i < data.matchmoney.length; i++) { %>
+                            <tr>
+                              <td style="text-align:center;"><%=  data.matchmoney[i].valormatch %></td>
+                              <td style="text-align:center;"><%=  data.matchmoney[i].prazo %></td>
+                              <td style="text-align:center;"><%=  data.matchmoney[i].jurosmatch %></td>
+                              <td style="text-align:center;">
+                                <a style="width:50%;" href="/editMatch/<%= data.matchmoney[i].idmatch %>" class="btn btn-info">Edit</a>
+                                <a href="/deleteMatch/<%= data.matchmoney[i].idmatch %>" class="btn btn-danger">Delete</a>
+                              </td>
+                            </tr>
+                          <% } %>
+                        <% } %>
+                      </tbody>
+
+                 </table>
+              </div>
+
+        </div>
+
+
+        <div class="col-md-11" style="padding-top:1%; text-align:center; margin-top:1%; margin-left:1%; margin-bottom:1%; float:left; border: solid 1px darkgrey; border-radius: 3px;">
+             <h5 style="color: grey;">Investimentos Concorrentes</h5>
+             <button type="button" class="btn btn-warning" data-toggle="tooltip" style="color:white; border-radius:30px;" data-placement="right"
+             title="Temos um total de 3 investimentos concorrentes que podem ser editados à escolha!">
+               Info
+             </button>
+            <div class="col-md-12" style="padding-top:1%; text-align:center; margin-top:1%; margin-left:1%; float:left;">
+                <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <td style="text-align:center;">Nome</td>
+                          <td style="text-align:center;">Juros</td>
+                          <td style="text-align:center;">Ações</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if (data) { %>
+                          <% for(var i = 0; i < data.investimentos.length; i++) { %>
+                            <tr>
+                              <td style="text-align:center;"><%=  data.investimentos[i].nome %></td>
+                              <td style="text-align:center;"><%=  data.investimentos[i].juros %></td>
+                              <td style="text-align:center;">
+                                <a style="width:50%;" href="/editInvestimentos/<%= data.investimentos[i].idinvests %>" class="btn btn-info">Edit</a>
+                                <!--<a href="/deleteInvestimentos/<%= data.investimentos[i].idinvests %>" class="btn btn-danger">Delete</a>-->
+                              </td>
+                            </tr>
+                          <% } %>
+                        <% } %>
+                      </tbody>
+
+                 </table>
+              </div>
+
+        </div>
+
+      </div>
+    </form>
+
+    <form class="" action="/update" method="post">
+
+      <div class="col-md-11" style="padding-top:1%; min-width: 350px; text-align:center; margin-top:1%; margin-left:1%; margin-bottom:30px; float:left; border: solid 1px darkgrey ; border-radius: 3px;">
+        <h5 style="color: grey;">Configurações</h5>
+        <div style=" width: 19%; text-align: left; float:left; color:grey; margin: 2px; padding:1%;">
+          <label style="" for="">Número de Valores</label>
+          <input style="min-width:140px; width: 100%; margin:2px;" id="numero_de_valores" type="number" min="2" max="8" name="numero_de_valores" value="<%= data.config[0].numero_de_valores %>" class="form-control" placeholder="Prazo Mínimo">
+        </div>
+        <div style=" width: 19%; text-align: left; float:left; color:grey; margin: 2px; padding:1%;">
+          <label style="" for="">Prazo Mínimo</label>
+          <input style="min-width:140px; width: 100%; margin:2px;" id="mes_min" type="text" name="prazo_min" value="<%= data.config[0].prazo_min %>" class="form-control" placeholder="Prazo Mínimo">
+        </div>
+        <div style=" width: 19%; text-align: left; float:left; color:grey; margin: 2px; padding:1%;">
+          <label style="" for="">Prazo Máximo</label>
+          <input style="min-width:140px; width: 100%; margin:2px;" id="mes_max" type="text" name="prazo_max" value="<%= data.config[0].prazo_max %>" class="form-control" placeholder="Prazo Máximo">
+        </div>
+        <div style=" width: 19%; text-align: left; float:left; color:grey; margin: 2px; padding:1%;">
+          <label style="" for="">Salto no Prazo</label>
+          <input style="min-width:140px; width: 100%; margin:2px;" id="mes_salto" type="text" name="prazo_salto" value="<%= data.config[0].prazo_salto %>" class="form-control" placeholder="Salto do Prazo">
+        </div>
+        <div style=" width: 19%; text-align: left; float:left; color:grey; margin: 2px; padding:1%;">
+          <label style="" for="">Juros Padrão</label>
+          <input style="min-width:140px; width: 100%; margin:2px;" id="juros" type="text" name="juros_padrao" value="<%= data.config[0].juros_padrao%>" class="form-control" placeholder="Juros Padrão">
+        </div>
+
+        <div style=" width:100%; text-align:right; margin-bottom:10px; margin-top:10px; margin-right:20px;">
+          <button type="button" class="btn btn-warning" data-toggle="tooltip" style="color:white; border-radius:30px;" data-placement="right"
+          title="Configurações gerais da calculadora, Número de valores se refere à quantidade de valores que será apresentado na régua de valores tendo como mínimo 2 e máximo 8 e os demais dados se referem à regua de prazo de investimento!">
+            Info
+          </button>
+          <input type="submit" class="btn btn-success" style="margin-top:5px;" name="" value="Salvar">
+        </div>
+
+      </div>
+    </form>
+
+    <script type="text/javascript">
+      $("#numero_de_valores").mask("000");
+      $("#mes_min").mask("0000");
+      $("#mes_max").mask("0000");
+      $("#mes_salto").mask("0000");
+      $("#juros").mask("0.000");
+
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    </script>
+
+  </body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Painel</title>
+    <link rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+     crossorigin="anonymous">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  </head>
+  <body style="background-color: white">
+
+    <form class="" action="/addMatch" method="post">
+      <div class="form-group">
+        <div class="col-md-3" style="padding-top:2%; min-width: 350px; margin-top:1%; text-align: center; margin-left:1%; border: solid 1px grey; border-radius: 3px;">
+          <h5 style="color: white;">Inserir Valor Match Money</h5>
+          <label style="color: darkgrey; margin-top:10px">Valor</label>
+          <input style="width: 70%; margin-left:15%; margin-top:5px; margin-bottom:20px;"  id="valor" type="text" name="valor_invest"  class="form-control" placeholder="valor">
+          <label style="color: darkgrey; margin-top:10px">Prazo</label>
+          <input style="width: 70%; margin-left:15%; margin-top:5px; margin-bottom:20px;"  id="valor" type="text" name="prazo"  class="form-control" placeholder="prazo">
+          <label style="color: darkgrey; margin-top:10px">Juros</label>
+          <input style="width: 70%; margin-left:15%; margin-top:5px; margin-bottom:20px;"  id="juros" type="text" name="juros"  class="form-control" placeholder="juros">
+            <input type="submit" class="btn btn-success" name="" value="Salvar"  style="margin-bottom:5px;">
+            <input type="button" onclick="window.location.href='/panel'" style="color: white" value="Voltar"  class="btn btn-warning"  style="margin-bottom:5px;">
+          </div>
+        </div>
+      </div>
+    </form>
+    <script type="text/javascript">
+      $("#valor").mask("00000");
+      $("#juros").mask("0.000");
+    </script>
+
+  </body>
+
+</html>

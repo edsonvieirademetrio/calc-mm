@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Painel</title>
+    <link rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+     crossorigin="anonymous">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  </head>
+  <body style="background-color: darkgray">
+
+    <form class="" action="/addInvestimentos" method="post">
+      <div class="form-group">
+        <div class="col-md-7" style="padding-top:1%; min-width: 350px; margin-top:1%; text-align: center; margin-left:1%; border: solid 1px white; border-radius: 3px;">
+          <h5 style="color: white;">Inserir Valor</h5>
+            <input style="width: 30%; margin-left:35%; margin-top:20px; margin-bottom:20px;"  id="nome" type="text" name="nome" class="form-control" placeholder="nome">
+            <input style="width: 30%; margin-left:35%; margin-top:20px; margin-bottom:20px;"  id="juros" type="text" name="juros" class="form-control" placeholder="juros">
+            <input type="submit" class="btn btn-success" name="" value="Salvar">
+            <input type="button" onclick="window.location.href='/panel'" style="color: white" value="Voltar"  class="btn btn-warning">
+          </div>
+        </div>
+      </div>
+    </form>
+    <script type="text/javascript">
+      $("#juros").mask("0.000");
+    </script>
+
+  </body>
+
+</html>

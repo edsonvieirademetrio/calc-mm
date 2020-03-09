@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Calculadora</title>
+
+    <link rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+     crossorigin="anonymous">
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+  </head>
+
+  <style>
+
+
+  @font-face {
+    font-family: MaldenSans;
+    src: url('../fonts/MaldenSans-Light.ttf');
+}
+
+
+  .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 7px;
+    border-radius: 5px;
+    background: #253eb8;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    background: #ff7539;
+    cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    background: #ff7539;
+    cursor: pointer;
+  }
+
+  .mostrador{
+    float: left;
+  }
+
+  .mostradorMobile{
+
+  }
+
+  .tituloMobile{
+    margin: 10px;
+    font-size:35px;
+    font-weight: 600;
+    font-family: inherit;
+    letter-spacing: 0px;
+    color: #170e44;
+  }
+
+  .titulo{
+      margin: 10px;
+      font-size:28px;
+      font-weight: 600;
+      font-family: inherit;
+      letter-spacing: 0px;
+      color: #170e44;
+  }
+
+  .graficosMobile{
+
+  }
+
+  .graficoMatchMobile{
+    text-align:center;
+    max-height:30px;
+    height: 30px;
+  }
+
+  </style>
+
+
+  <body onload="calcular()" style="padding:3%;">
+    <div  class="titulo">
+        <p>Simule o seu<br/>investimento agora</p>
+    </div>
+      <div class="col-md-6 mostrador" >
+        <label style="margin: 0px; font-size:24px; font-family: inherit; color: #170e44;">Invista</label><br/>
+        <label style="letter-spacing: 1px; font-family: inherit; color:#1e1f22;" >R$</label>
+        <input style="border:none; letter-spacing: 3px;  font-size:58px; width: 20%;text-align: left; font-family: inherit; font-weight:200; color:#1e1f22;" type="text" id="display_valor" onchange="calcular(),   " oninput="calcular(),   " value="0" readonly>
+        <label style="letter-spacing: 3px; font-size:58px; font-family: inherit; font-weight:200; color:#1e1f22;">,00</label>
+        <br/>
+        <input id="rangeValor" style="width: 80%;" class="slider" type="range" name="vol" value="0" min ="0" max="<%= data.config[0].numero_de_valores-1%>" step="1"
+           onchange="calcular()">
+      </div>
+
+      <div class="col-md-6 mostrador">
+        <label style="margin: 0px; font-size:24px; font-family: inherit;; color: #170e44;">Durante</label><br/>
+        <input style="border:none; letter-spacing: 3px; width: 15%; min-width: 70px; font-size:58px; font-family: inherit; font-weight:200; color:#1e1f22;" type="text" id="display_prazo" onchange="calcular(),   " oninput="calcular(),   " value="<%= data.config[0].prazo_min %>" readonly>
+        <label style="letter-spacing: 3px; font-size:58px;  font-family: inherit; font-weight:200; color:#1e1f22;">meses</label>
+        <input id="rangePrazo" style="width: 80%;" type="range" class="slider" name="vol" value="<%= data.config[0].prazo_min %>" min ="<%= data.config[0].prazo_min %>" max="<%= data.config[0].prazo_max %>" step="<%= data.config[0].prazo_salto %>"
+           oninput="display_prazo.value=value" onchange="display_prazo.value=value, calcular()">
+      </div>
+
+
+
+
+      <div class="graficosMobile" style="display: none;">
+              <div style="text-align: center;">
+                <label style="font-size:16px; font-family: inherit; margin-top: 8%; font-weight:400; color: #ff815e; text-align:center;">TOTAL RESGATADO NA<br/>MATCHMONEY</label><br/>
+              <input style="margin-top: 1px; text-align:center; font-size:48px; border: none; font-family: inherit; font-weight:700; color: #170e44; width: 70%;" type="text" id="valorMobile1" readonly>
+              <div class="col-md-3 graficoMatchMobile" style="margin-left:20%;">
+                <div style="width:9%; margin-bottom: -13%;">
+                  <img src="../coin.png" style="width:55px; height:55px;">
+                </div>
+                <div class="" style="width: 80%; bottom:0; height: 100%; left: 0; text-align:center; padding-right: 25%; padding-left: 5%;">
+                  <div class="graficoMobile1" style="display: block; border-radius: 5px; margin-top:0px; min-width: 38px; max-width: 170px; background-image: linear-gradient(to left, #fc6963, #ffcf6e); height: 100%;">
+                </div>
+                </div>
+                </div>
+              </div>
+                <label style="font-size:16px; font-family: inherit; margin-top: 12%; margin-left: 6%; font-weight:400; color: #ff815e; text-align:left; ">Outros Rendimentos:</label><br/>
+
+                <div style="margin-left: 6%;">
+                  <div style="width: 45%; float: left; height: 30px;">
+                    <label style="font-size:20px; margin-top: 2%; font-family: inherit; font-weight:100; color: #170e44;">R$</label>
+                    <input style="border: none; width: 100px; height: 30px; margin: 0px; text-align:left; font-size:20px; font-family: inherit; font-weight:100; color: #170e44;" type="text" id="valorMobile2" readonly>
+                   </div>
+                    <div class="" style="width: 50%; bottom:0; float: left; margin-top: 3%;height: 20px; left: 0; text-align:center; padding-right: 25%;">
+                        <div class="graficoMobile2" style="display: block; border-radius: 5px; margin-top:0px; min-width: 10px; max-width: 130px; background-image: linear-gradient(to left, #06fba6, #1f9bfb); height: 100%;">
+                    </div>
+                </div>
+                <div style="">
+                <label style="font-size:16px; margin:0; width: 90%;font-family: inherit; color: #170e44;"><%= data.investimentos[0].nome%></label>
+                </div>
+              </div>
+
+              <div style="margin-left: 6%; margin-top: 4%;">
+                <div style="width: 45%; float: left; height: 30px;">
+                  <label style="font-size:20px; margin-top: 2%; font-family: inherit; font-weight:100; color: #170e44;">R$</label>
+                  <input style="border: none; width: 100px; height: 30px; margin: 0px; text-align:left; font-size:20px; font-family: inherit; font-weight:100; color: #170e44;" type="text" id="valorMobile3" readonly>
+                 </div>
+                  <div class="" style="width: 50%; bottom:0; float: left; margin-top: 3%;height: 20px; left: 0; text-align:center; padding-right: 25%;">
+                      <div class="graficoMobile3" style="display: block; border-radius: 5px; margin-top:0px; min-width: 10px; max-width: 130px; background-image: linear-gradient(to left, #06fba6, #1f9bfb); height: 100%;">
+                  </div>
+              </div>
+              <div style="">
+              <label style="font-size:16px; margin:0; width: 90%;font-family: inherit; color: #170e44;"><%= data.investimentos[1].nome%></label>
+              </div>
+            </div>
+
+            <div style="margin-left: 6%; margin-top: 4%;">
+              <div style="width: 45%; float: left; height: 30px;">
+                <label style="font-size:20px; margin-top: 2%; font-family: inherit; font-weight:100; color: #170e44;">R$</label>
+                <input style="border: none; width: 100px; height: 30px; margin: 0px; text-align:left; font-size:20px; font-family: inherit; font-weight:100; color: #170e44;" type="text" id="valorMobile4" readonly>
+               </div>
+                <div class="" style="width: 50%; bottom:0; float: left; margin-top: 3%;height: 20px; left: 0; text-align:center; padding-right: 25%;">
+                    <div class="graficoMobile4" style="display: block; border-radius: 5px; margin-top:0px; min-width: 10px; max-width: 130px; background-image: linear-gradient(to left, #06fba6, #1f9bfb); height: 100%;">
+                </div>
+            </div>
+            <div style="">
+            <label style="font-size:16px; margin:0; width: 90%;font-family: inherit; color: #170e44;"><%= data.investimentos[2].nome%></label>
+            </div>
+          </div>
+      </div>
+
+      <div style="width:100%; float: left;heigth:10%;">
+      </div>
+
+
+
+        <div class="graficosDesktop">
+            <div class="col-md-3" style="float: left;  margin-top:1%; text-align:center; min-height:300px;">
+              <div class="" style="width: 100%; position: absolute; bottom:0; min-height: 140px; left: 0; text-align:center;">
+                <div class="grafico1" style="display: block; background-image: linear-gradient(to left, #06fba6, #1f9bfb); width:60%; margin-left:20%; max-height:170px; min-height:4px;">
+                </div>
+                <label style="font-size:20px; margin-top: 2%; font-family: inherit; color: #170e44;"><%= data.investimentos[0].nome%></label><br/>
+                <label style="font-size:16px; font-family: inherit; margin-top: 6%; font-weight:100; color: #ff815e;">Total Resgatado:</label><br/>
+                <input style="border:none; margin: 0px; text-align:center; font-size:18px; font-family: inherit; font-weight:100; color: #170e44;" type="text" id="valor1" readonly>
+              </div>
+              </div>
+
+            <div class="col-md-3" style="float: left;  margin-top:1%; text-align:center; min-height:300px;">
+                <div class="" style="width: 100%; position: absolute; min-height: 140px; bottom:0; left: 0; text-align:center;">
+                <div class="grafico2" style="display: block; background-image: linear-gradient(to left, #06fba6, #1f9bfb); width:60%; margin-left:20%; max-height:170px; min-height:4px;">
+                </div>
+                  <label style="font-size:20px; margin-top: 2%; font-family: inherit; color: #170e44;"><%= data.investimentos[1].nome%></label><br/>
+                  <label style="font-size:16px; font-family: inherit; margin-top: 6%; font-weight:100; color: #ff815e;">Total Resgatado:</label><br/>
+                <input style="border:none; margin: 0px; text-align:center; font-size:18px; font-family: inherit; font-weight:100; color: #170e44;"  type="text" id="valor2" readonly>
+              </div>
+            </div>
+            <div class="col-md-3" style=" float: left;  margin-top:1%; text-align:center; min-height:300px;">
+              <div class="" style=" width: 100%; position: absolute; min-height: 140px; bottom:0; left: 0; text-align:center;">
+              <div class="grafico3" style="display: block; background-image: linear-gradient(to left, #06fba6, #1f9bfb); width:60%; margin-left:20%; max-height:170px; min-height:4px;">
+              </div>
+                <label style="font-size:20px; margin-top: 2%; font-family: inherit; color: #170e44;"><%= data.investimentos[2].nome%></label><br/>
+                <label style="font-size:16px; font-family: inherit; margin-top: 6%; font-weight:100; color: #ff815e;">Total Resgatado:</label><br/>
+                <input style="border:none; margin: 0px; text-align:center; font-size:18px; font-family: inherit; font-weight:100; color: #170e44;"  type="text" id="valor3" readonly>
+              </div>
+            </div>
+
+            <div class="col-md-3" style=" float: left; margin-top:1%; text-align:center; min-height:300px;">
+              <div class="" style=" width: 100%; min-height: 140px; position: absolute; bottom:0; left: 0; text-align:center;">
+              <div class="grafico4" style="display: block; background-image: linear-gradient(to left, #fc6963, #ffcf6e); width:60%; margin-left:20%; max-height:170px; min-height:4px;">
+              </div>
+                <label style="font-size:28px; font-family: inherit; font-weight:600; color: #170e44;">MatchMoney</label><br/>
+                <label style="font-size:16px; font-family: inherit; font-weight:100; color: #ff815e;">Total Resgatado:</label><br/>
+                <input class="ValoresItens" style="border:none; margin: 0px; text-align:center; font-size:28px; font-family: inherit; font-weight:600; max-width: 100%; color: #170e44;"  type="text" id="valor4" onchange="  " oninput="  " readonly>
+              </div>
+            </div>
+
+      </div>
+
+
+
+        <script type="text/javascript">
+
+        window.onload = function() {
+          if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            console.log('Dispositivo Movel');
+            document.getElementsByClassName('titulo')[0].className = 'tituloMobile';
+            document.getElementsByClassName('mostrador')[0].className = 'col-md-6 mostradorMobile';
+            document.getElementsByClassName('slider')[0].style.width = "100%";
+            document.getElementsByClassName('slider')[1].style.width = "100%";
+            document.getElementsByClassName('graficosDesktop')[0].style.display = "none";
+            document.getElementsByClassName('graficosMobile')[0].style.display = "block";
+         }
+           calcular();
+       }
+
+           function calcular(){
+
+             var valorRange  = parseFloat(document.getElementById('rangeValor').value);
+             var display_valor = document.getElementById('display_valor');
+             var valorInvestido = 0;
+             var numero_de_valores = <%=data.config[0].numero_de_valores%>;
+
+
+         if(numero_de_valores == 2){
+
+            if(valorRange == 0){
+              display_valor.value = <%=data.valores[0].valor%>;
+            }
+            if(valorRange == 1){
+              display_valor.value = <%=data.valores[1].valor%>;
+            }
+          }
+
+          if(numero_de_valores == 3){
+
+             if(valorRange == 0){
+               display_valor.value = <%=data.valores[0].valor%>;
+             }
+             if(valorRange == 1){
+               display_valor.value = <%=data.valores[1].valor%>;
+             }
+             if(valorRange == 2){
+               display_valor.value = <%=data.valores[2].valor%>;
+             }
+           }
+
+           if(numero_de_valores == 4){
+
+              if(valorRange == 0){
+                display_valor.value = <%=data.valores[0].valor%>;
+              }
+              if(valorRange == 1){
+                display_valor.value = <%=data.valores[1].valor%>;
+              }
+              if(valorRange == 2){
+                display_valor.value = <%=data.valores[2].valor%>;
+              }
+              if(valorRange == 3){
+                display_valor.value = <%=data.valores[3].valor%>;
+              }
+            }
+
+            if(numero_de_valores == 5){
+
+               if(valorRange == 0){
+                 display_valor.value = <%=data.valores[0].valor%>;
+               }
+               if(valorRange == 1){
+                 display_valor.value = <%=data.valores[1].valor%>;
+               }
+               if(valorRange == 2){
+                 display_valor.value = <%=data.valores[2].valor%>;
+               }
+               if(valorRange == 3){
+                 display_valor.value = <%=data.valores[3].valor%>;
+               }
+               if(valorRange == 4){
+                 display_valor.value = <%=data.valores[4].valor%>;
+               }
+             }
+
+             if(numero_de_valores == 6){
+
+                if(valorRange == 0){
+                  display_valor.value = <%=data.valores[0].valor%>;
+                }
+                if(valorRange == 1){
+                  display_valor.value = <%=data.valores[1].valor%>;
+                }
+                if(valorRange == 2){
+                  display_valor.value = <%=data.valores[2].valor%>;
+                }
+                if(valorRange == 3){
+                  display_valor.value = <%=data.valores[3].valor%>;
+                }
+                if(valorRange == 4){
+                  display_valor.value = <%=data.valores[4].valor%>;
+                }
+                if(valorRange == 5){
+                  display_valor.value = <%=data.valores[5].valor%>;
+                }
+              }
+
+              if(numero_de_valores == 7){
+
+                 if(valorRange == 0){
+                   display_valor.value = <%=data.valores[0].valor%>;
+                 }
+                 if(valorRange == 1){
+                   display_valor.value = <%=data.valores[1].valor%>;
+                 }
+                 if(valorRange == 2){
+                   display_valor.value = <%=data.valores[2].valor%>;
+                 }
+                 if(valorRange == 3){
+                   display_valor.value = <%=data.valores[3].valor%>;
+                 }
+                 if(valorRange == 4){
+                   display_valor.value = <%=data.valores[4].valor%>;
+                 }
+                 if(valorRange == 5){
+                   display_valor.value = <%=data.valores[5].valor%>;
+                 }
+                 if(valorRange == 6){
+                   display_valor.value = <%=data.valores[6].valor%>;
+                 }
+               }
+
+               if(numero_de_valores == 8){
+
+                  if(valorRange == 0){
+                    display_valor.value = <%=data.valores[0].valor%>;
+                  }
+                  if(valorRange == 1){
+                    display_valor.value = <%=data.valores[1].valor%>;
+                  }
+                  if(valorRange == 2){
+                    display_valor.value = <%=data.valores[2].valor%>;
+                  }
+                  if(valorRange == 3){
+                    display_valor.value = <%=data.valores[3].valor%>;
+                  }
+                  if(valorRange == 4){
+                    display_valor.value = <%=data.valores[5].valor%>;
+                  }
+                  if(valorRange == 5){
+                    display_valor.value = <%=data.valores[4].valor%>;
+                  }
+                  if(valorRange == 6){
+                    display_valor.value = <%=data.valores[6].valor%>;
+                  }
+                  if(valorRange == 7){
+                    display_valor.value = <%=data.valores[7].valor%>;
+                  }
+                }
+
+
+
+
+               console.log(display_valor.value.length);
+               if(display_valor.value.length == 4){
+                  console.log("é");
+                   display_valor.style.width = '130px';
+               }else{
+                   display_valor.style.width = '155px';
+               }
+
+
+               var juros_invest1 = parseFloat((<%= data.investimentos[0].juros%>));
+               var juros_invest2 = parseFloat(<%= data.investimentos[1].juros%>);
+               var juros_invest3 = parseFloat(<%= data.investimentos[2].juros%>);
+               valorInvestido = parseFloat(display_valor.value);
+
+               var valor  = parseFloat(document.getElementById('display_valor').value);
+               var meses  = parseFloat(document.getElementById('display_prazo').value);
+               //console.log("VALOR: "+valor);
+               //console.log("PRAZO: "+meses);
+               var qtdJurosMatch = <%= data.matchmoney.length%>;
+               var juros_invest_match = parseFloat(<%= data.config[0].juros_padrao%>);
+               //console.log("JUROS: " + juros_invest_match);
+
+               console.log("Tamanho match: "+qtdJurosMatch);
+               var juros;
+                 <% for(var i = 0; i < data.matchmoney.length; i++) { %>
+                       juros = <%= data.matchmoney[i].jurosmatch%>
+                       prazo = <%= data.matchmoney[i].prazo%>
+                       //console.log("JUROS: "+juros);
+                      // console.log("PRAZO: "+prazo);
+                        if( valor >= parseFloat(<%= data.matchmoney[i].valormatch%>)){
+                          if( meses >= parseFloat(<%= data.matchmoney[i].prazo%>)){
+                           juros_invest_match = parseFloat(<%= data.matchmoney[i].jurosmatch%>);
+                           console.log("JUROS: " + juros_invest_match);
+                         }
+                        }
+                   <% } %>
+
+
+
+               var taxaJuros1 = juros_invest1/100;
+               console.log("Taxa 1: "+taxaJuros1);
+               var taxaJuros2 = juros_invest2/100;
+               var taxaJuros3 = juros_invest3/100;
+               var taxaJuros4 = juros_invest_match/100;
+
+               var rendimento1 = valorInvestido * Math.pow((1 + taxaJuros1), meses);
+               var rendimento2 = valorInvestido * Math.pow((1 + taxaJuros2), meses);
+               var rendimento3 = valorInvestido * Math.pow((1 + taxaJuros3), meses);
+               var rendimento4 = valorInvestido * Math.pow((1 + taxaJuros4), meses);
+
+               console.log("Rendimento: "+rendimento1);
+
+
+                 document.getElementById('valor1').value = rendimento1.toFixed(2);
+                 document.getElementById('valor2').value = rendimento2.toFixed(2);
+                 document.getElementById('valor3').value = rendimento3.toFixed(2);
+                 document.getElementById('valor4').value = rendimento4.toFixed(2);
+
+                 document.getElementById('valorMobile1').value = rendimento4.toFixed(2);
+                 document.getElementById('valorMobile2').value = rendimento1.toFixed(2);
+                 document.getElementById('valorMobile3').value = rendimento2.toFixed(2);
+                 document.getElementById('valorMobile4').value = rendimento3.toFixed(2);
+
+
+
+                 var grafico1 = document.querySelector(".grafico1");
+                 var grafico2 = document.querySelector(".grafico2");
+                 var grafico3 = document.querySelector(".grafico3");
+                 var grafico4 = document.querySelector(".grafico4");
+                 var graficoMobile1 = document.querySelector(".graficoMobile1");
+                 var graficoMobile2 = document.querySelector(".graficoMobile2");
+                 var graficoMobile3 = document.querySelector(".graficoMobile3");
+                 var graficoMobile4 = document.querySelector(".graficoMobile4");
+
+
+                 var height1 = parseInt((valorInvestido/250)*juros_invest1 + rendimento1/400).toString()+'px';
+                 var height2 = parseInt((valorInvestido/250)*juros_invest2 + rendimento2/400).toString()+'px';
+                 var height3 = parseInt((valorInvestido/250)*juros_invest3 + rendimento3/400).toString()+'px';
+                 var height4 = parseInt((valorInvestido/200)*juros_invest_match + rendimento4/400).toString()+'px';
+
+                 var width1 =  parseInt((valorInvestido/200)*juros_invest_match + rendimento4/100).toString()+'px';
+                 var width2 =  parseInt((valorInvestido/200)*juros_invest1 + rendimento1/100).toString()+'px';
+                 var width3 =  parseInt((valorInvestido/200)*juros_invest2 + rendimento2/100).toString()+'px';
+                 var width4 =  parseInt((valorInvestido/200)*juros_invest3 + rendimento3/100).toString()+'px';
+
+                 grafico1.style.height = height1;
+                 grafico2.style.height = height2;
+                 grafico3.style.height = height3;
+                 grafico4.style.height = height4;
+
+                 graficoMobile1.style.width = width1;
+                 graficoMobile2.style.width = width2;
+                 graficoMobile3.style.width = width3;
+                 graficoMobile4.style.width = width4;
+
+
+
+                 var elemento1 = document.getElementById('valor1');
+                 var elemento2 = document.getElementById('valor2');
+                 var elemento3 = document.getElementById('valor3');
+                 var elemento4 = document.getElementById('valor4');
+
+                 var valor1 = elemento1.value;
+                      var valor2 = elemento2.value;
+                           var valor3 = elemento3.value;
+                                var valor4 = elemento4.value;
+
+                 valor1 = valor1 + '';
+                 valor1 = parseInt(valor1.replace(/[\D]+/g,''));
+                 valor1 = valor1 + '';
+                 valor1 = valor1.replace(/([0-9]{2})$/g, ",$1");
+
+                 if (valor1.length > 6) {
+                   valor1 = valor1.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+                 }
+
+                 elemento1.value = valor1;
+
+                 valor2 = valor2 + '';
+                 valor2 = parseInt(valor2.replace(/[\D]+/g,''));
+                 valor2 = valor2 + '';
+                 valor2 = valor2.replace(/([0-9]{2})$/g, ",$1");
+
+                 if (valor2.length > 6) {
+                   valor2 = valor2.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+                 }
+
+                 elemento2.value = valor2;
+
+                 valor3 = valor3 + '';
+                 valor3 = parseInt(valor3.replace(/[\D]+/g,''));
+                 valor3 = valor3 + '';
+                 valor3 = valor3.replace(/([0-9]{2})$/g, ",$1");
+
+                 if (valor3.length > 6) {
+                   valor3 = valor3.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+                 }
+
+                 elemento3.value = valor3;
+
+                 valor4 = valor4 + '';
+                 valor4 = parseInt(valor4.replace(/[\D]+/g,''));
+                 valor4 = valor4 + '';
+                 valor4 = valor4.replace(/([0-9]{2})$/g, ",$1");
+
+                 if (valor1.length > 6) {
+                   valor4 = valor4.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+                 }
+
+                 elemento4.value = valor4;
+             }
+        </script>
+
+  </body>
+</html>

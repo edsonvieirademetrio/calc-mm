@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Painel</title>
+    <link rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+     crossorigin="anonymous">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+  </head>
+  <body style="background-color: white">
+
+    <form class="" action="/updateValores/<%= data.id %>" method="post">
+      <div class="form-group">
+        <div class="col-md-3" style="padding-top:1%; min-width: 350px; margin-top:1%; text-align: center; margin-left:1%; border: solid 1px grey; border-radius: 3px;">
+          <h5 style="color: darkgrey;">Inserir Valor</h5>
+              <label style="color: darkgrey; margin-top:10px">Valor</label>
+            <input style="width: 70%; margin-left:15%; margin-top:5px; margin-bottom:20px;" value="<%= data.valor%>"  id="valor" type="text" name="valor" class="form-control" placeholder="Valor">
+            <input type="submit" class="btn btn-success" name="" value="Salvar" style="margin-bottom:5px;">
+            <input type="button" onclick="window.location.href='/panel'" style="color: white; margin-bottom:5px;" value="Voltar"  class="btn btn-warning">
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <script type="text/javascript">
+      $("#valor").mask("00000");
+    </script>
+
+  </body>
+
+</html>
